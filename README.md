@@ -1,6 +1,15 @@
+## Install
+
+Checkout the project and install dependencies:
+```
+git clone --recursive https://github.com/tugstugi/mongolian-bert.git
+pip install -r requirements.txt
+```
+
+
 ## Data preparation
 
-Download the Mongolian Wikipedia and the 700 million word news data set and pre process them into a file `all.txt`:
+Download the Mongolian Wikipedia and the 700 million word Mongolian news data set and pre process them into a file `all.txt`:
 ```
 # Mongolian Wikipedia
 python dl_and_preprop_mn_wiki.py
