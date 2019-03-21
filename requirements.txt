@@ -1,0 +1,5 @@
+nltk
+sentencepiece
+requests
+tqdm
+patool
