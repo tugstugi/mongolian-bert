@@ -14,6 +14,6 @@ args = parser.parse_args()
 
 print("training sentence piece...")
 command = f'--input={args.input} --model_prefix={args.prefix} --vocab_size={args.vocab_size} ' \
-          f'--control_symbols={args.control_symbols}'
+          f'--control_symbols={args.control_symbols} --input_sentence_size=10000000 --shuffle_input_sentence=true '
 spm.SentencePieceTrainer.Train(command)
 print("done!")
