@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Download and pre process the 700 million word Mongolian news data set."""
 __author__ = 'Erdene-Ochir Tuguldur'
 
