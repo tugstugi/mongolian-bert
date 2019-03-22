@@ -9,7 +9,8 @@ pip install -r requirements.txt
 
 ## Data preparation
 
-Download the Mongolian Wikipedia and the 700 million word Mongolian news data set and pre process them into a file `all.txt`:
+Download the Mongolian Wikipedia and the 700 million word Mongolian news data set and pre process them into a single file `all.txt`:
+(download already prepared file from [here](https://www.dropbox.com/s/s1eweex28t6trqj/all.txt.gz?dl=1))
 ```
 # Mongolian Wikipedia
 python dl_and_preprop_mn_wiki.py
@@ -21,7 +22,7 @@ cat mn_wiki.txt mn_news_700m.txt > all.txt
 
 ## Train SentencePiece vocabulary
 
-Now, train the SentencePiece model:
+Now, train the SentencePiece model (repo contains already a trained model):
 ```
 python train_sentencepiece.py --input all.txt --vocab-size 32000 --prefix mn_cased
 ```
@@ -32,5 +33,5 @@ You can also test whether the SentencePiece model is working as intended:
 >>> s = spm.SentencePieceProcessor()
 >>> s.Load('mn_cased.model')
 >>> s.EncodeAsPieces('Мөнгөө тушаачихсаныхаа дараа мэдэгдээрэй')
-['▁Мөн', 'гөө', '▁тушаа', 'чихсан', 'ыхаа', '▁дараа', '▁мэдэгд', 'ээр', 'эй']
+['▁Мөнгөө', '▁тушаа', 'чихсан', 'ыхаа', '▁дараа', '▁мэдэгд', 'ээрэй']
 ```
