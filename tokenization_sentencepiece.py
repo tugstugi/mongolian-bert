@@ -1,4 +1,7 @@
 # coding=utf-8
+#
+# Copied from: https://github.com/yoheikikuta/bert-japanese/
+#
 # This file is based on https://github.com/google-research/bert/blob/master/tokenization.py.
 # It is changed to use SentencePiece tokenizer for tokenizations.
 """Tokenization classes."""

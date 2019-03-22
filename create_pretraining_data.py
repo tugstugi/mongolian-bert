@@ -1,4 +1,7 @@
 # coding=utf-8
+#
+# Copied from: https://github.com/yoheikikuta/bert-japanese/
+#
 # This file is based on https://github.com/google-research/bert/blob/master/create_pretraining_data.py.
 # It is changed to use SentencePiece tokenizer for tokenizations.
 """Create masked LM/next sentence masked_lm TF examples for BERT."""
