@@ -1,5 +1,15 @@
 .idea/
 __pycache__/
+
+env/
+
 all.txt
 mn_wiki.txt
 mn_news_700m.txt
+mn_news_700m.rar
+tmp_mn_news_700m/
+
+mn_wiki.bz2
+tmp_mn_wiki/
+
+mn_corpus
