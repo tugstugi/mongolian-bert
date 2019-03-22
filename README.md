@@ -3,7 +3,7 @@
 Checkout the project and install dependencies:
 ```
 git clone --recursive https://github.com/tugstugi/mongolian-bert.git
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 
@@ -13,9 +13,9 @@ Download the Mongolian Wikipedia and the 700 million word Mongolian news data se
 (download already prepared file from [here](https://www.dropbox.com/s/s1eweex28t6trqj/all.txt.gz?dl=1))
 ```
 # Mongolian Wikipedia
-python dl_and_preprop_mn_wiki.py
+python3 dl_and_preprop_mn_wiki.py
 # 700 million words Mongolian news data set
-python dl_and_preprop_mn_news.py
+python3 dl_and_preprop_mn_news.py
 ```
 
 ## Train SentencePiece vocabulary
@@ -23,7 +23,7 @@ python dl_and_preprop_mn_news.py
 Now, train the SentencePiece model (repo contains already a trained model):
 ```
 cat mn_corpus/*.txt > all.txt
-python train_sentencepiece.py --input all.txt --vocab-size 32000 --prefix mn_cased
+python3 train_sentencepiece.py --input all.txt --vocab-size 32000 --prefix mn_cased
 ```
 If the training was successful, the following files should be created: `mn_cased.model` and `mn_cased.vocab`.
 You can also test whether the SentencePiece model is working as intended:

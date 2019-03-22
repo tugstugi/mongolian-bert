@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Download and pre process the Mongolian Wikipedia."""
 __author__ = 'Erdene-Ochir Tuguldur'
 
@@ -23,7 +23,7 @@ if not exists(MN_WIKI_RAR_FILE):
     download_file(MN_WIKI_URL, MN_WIKI_RAR_FILE)
 
 # extract
-os.system("python wikiextractor/WikiExtractor.py %s -o=%s" % (MN_WIKI_RAR_FILE, MN_WIKI_EXTRACT_FOLDER))
+os.system("python3 wikiextractor/WikiExtractor.py %s -o=%s" % (MN_WIKI_RAR_FILE, MN_WIKI_EXTRACT_FOLDER))
 
 
 def _pre_process(wiki_file_name):
