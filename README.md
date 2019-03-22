@@ -10,7 +10,7 @@ pip3 install -r requirements.txt
 ## Data preparation
 
 Download the Mongolian Wikipedia and the 700 million word Mongolian news data set and pre process them into a directory `mn_corpus/`:
-(download already prepared file from [here](https://www.dropbox.com/s/s1eweex28t6trqj/all.txt.gz?dl=1))
+(you can also download it from [here](https://www.dropbox.com/s/l4wldeuyzi0x26k/mn_corpus.tar.gz?dl=1))
 ```
 # Mongolian Wikipedia
 python3 dl_and_preprop_mn_wiki.py
