@@ -19,7 +19,8 @@ if not exists(MN_CORPUS_FOLDER):
     os.makedirs(MN_CORPUS_FOLDER)
 
 # download
-download_file(MN_WIKI_URL, MN_WIKI_RAR_FILE)
+if not exists(MN_WIKI_RAR_FILE):
+    download_file(MN_WIKI_URL, MN_WIKI_RAR_FILE)
 
 # extract
 os.system("python wikiextractor/WikiExtractor.py %s -o=%s" % (MN_WIKI_RAR_FILE, MN_WIKI_EXTRACT_FOLDER))

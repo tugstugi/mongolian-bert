@@ -20,12 +20,12 @@ MN_NEWS_700M_URL = 'https://yadi.sk/d/z5e3MVnKvFvF6w'
 if not exists(MN_CORPUS_FOLDER):
     os.makedirs(MN_CORPUS_FOLDER)
 
-
-print('downloading %s...' % MN_NEWS_700M_RAR_FILE)
-url = requests.get('https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=%s'
-                   % MN_NEWS_700M_URL).json()['href']
-print('download url is %s...' % url)
-download_file(url, MN_NEWS_700M_RAR_FILE)
+if not exists(MN_NEWS_700M_RAR_FILE):
+    print('downloading %s...' % MN_NEWS_700M_RAR_FILE)
+    url = requests.get('https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=%s'
+                       % MN_NEWS_700M_URL).json()['href']
+    print('download url is %s...' % url)
+    download_file(url, MN_NEWS_700M_RAR_FILE)
 
 # extract unrar
 if not os.path.exists(MN_NEWS_700M_EXTRACT_FOLDER):
