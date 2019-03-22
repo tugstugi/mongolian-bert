@@ -39,6 +39,10 @@ You can also test whether the SentencePiece model is working as intended:
 ## TODO:
 * SentencePiece unigram or BPE?
 * vocabulary size bigger than 32000? Mongolian language has 85K root words.
+  * english cased: 28996
+  * multi lingual cased: 119547 `[PAD][UNK][CLS][SEP][MASK]<S><T>`
+  * japanese uncased: 32000 `[PAD][CLS][SEP][MASK]`
 * BERT max_seq_length 128 or longer?
+  * `max_predictions_per_seq=max_seq_length * masked_lm_prob`
 * cased is probably better...
 * ...
