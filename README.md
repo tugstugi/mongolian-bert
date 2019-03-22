@@ -20,7 +20,7 @@ python3 dl_and_preprop_mn_news.py
 
 ## Train SentencePiece vocabulary
 
-Now, train the SentencePiece model (repo contains already a trained model):
+Now, train the SentencePiece model i.e. with the vocabulary size 32000 :
 ```
 cat mn_corpus/*.txt > all.txt
 python3 train_sentencepiece.py --input all.txt --vocab-size 32000 --prefix mn_cased
@@ -34,6 +34,13 @@ You can also test whether the SentencePiece model is working as intended:
 >>> s.EncodeAsPieces('Мөнгөө тушаачихсаныхаа дараа мэдэгдээрэй')
 ['▁Мөнгөө', '▁тушаа', 'чихсан', 'ыхаа', '▁дараа', '▁мэдэгд', 'ээрэй']
 ```
+
+## Training
+We are going to make multiple experiments, so we need some conventions.
+* each experiment got its own gcloud bucket i.e. `mongolian-bert-32k-512` for vocabulary size 32000 and max_seq_length of 512.
+* each model got its own directory i.e. `model-32k` for a base model with a vocabulary size of 32000 and contains
+  * `bert_config.json` with `vocab_size` same as the SentencePiece vocabulary size
+  * `mn_cased.model` and `mn_cased.vocab`
 
 
 ## TODO:
