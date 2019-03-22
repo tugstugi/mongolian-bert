@@ -3,22 +3,22 @@
 __author__ = 'Erdene-Ochir Tuguldur'
 
 import os
-import sys
 import glob
 import requests
 import patoolib
-from os.path import exists, basename
+from os.path import exists, join
 from utils import download_file, sentence_tokenize
 
-MN_NEWS_700M_FILE = 'mn_news_700m.txt'
+MN_NEWS_700M_FILE = 'mn_news_700m_%i.txt'
+MN_CORPUS_FOLDER = 'mn_corpus'
 MN_NEWS_700M_RAR_FILE = 'mn_news_700m.rar'
 MN_NEWS_700M_EXTRACT_FOLDER = 'tmp_mn_news_700m'
 MN_NEWS_700M_URL = 'https://yadi.sk/d/z5e3MVnKvFvF6w'
 
 
-if exists(MN_NEWS_700M_FILE):
-    print("raw input file '%s' already exists!" % MN_NEWS_700M_FILE)
-    sys.exit(0)
+# create corpus directory
+if not exists(MN_CORPUS_FOLDER):
+    os.makedirs(MN_CORPUS_FOLDER)
 
 
 print('downloading %s...' % MN_NEWS_700M_RAR_FILE)
@@ -33,13 +33,14 @@ if not os.path.exists(MN_NEWS_700M_EXTRACT_FOLDER):
 patoolib.extract_archive(MN_NEWS_700M_RAR_FILE, outdir=MN_NEWS_700M_EXTRACT_FOLDER)
 
 
-def _pre_process(news_file_name):
+def _pre_process(news_file_name, output_file):
     """a very simple pre processing"""
     print("pre processing '%s'..." % news_file_name)
     with open(news_file_name) as f:
         content = f.readlines()
 
-    with open(MN_NEWS_700M_FILE, 'a') as f:
+    print("writing into '%s'..." % output_file)
+    with open(output_file, 'a') as f:
         # each line as a news article
         for news in content:
             news = news.strip()
@@ -61,8 +62,6 @@ def _pre_process(news_file_name):
 
 
 # pre process the extracted news files
-for file_name in glob.glob('%s/*.txt' % MN_NEWS_700M_EXTRACT_FOLDER):
-    _pre_process(file_name)
+for idx, file_name in enumerate(sorted(glob.glob('%s/*.txt' % MN_NEWS_700M_EXTRACT_FOLDER))):
+    _pre_process(file_name, join(MN_CORPUS_FOLDER, MN_NEWS_700M_FILE % (idx + 1)))
 print("done!")
-
-

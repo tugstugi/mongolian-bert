@@ -3,20 +3,20 @@
 __author__ = 'Erdene-Ochir Tuguldur'
 
 import os
-import sys
 import glob
-from os.path import exists
+from os.path import join, exists
 from utils import download_file, sentence_tokenize
 
 MN_WIKI_FILE = 'mn_wiki.txt'
+MN_CORPUS_FOLDER = 'mn_corpus'
 MN_WIKI_RAR_FILE = 'mn_wiki.bz2'
 MN_WIKI_EXTRACT_FOLDER = 'tmp_mn_wiki'
 MN_WIKI_URL = 'https://dumps.wikimedia.org/mnwiki/20181220/mnwiki-20181220-pages-articles-multistream.xml.bz2'
 
 
-if exists(MN_WIKI_FILE):
-    print("raw input file '%s' already exists!" % MN_WIKI_FILE)
-    sys.exit(0)
+# create corpus directory
+if not exists(MN_CORPUS_FOLDER):
+    os.makedirs(MN_CORPUS_FOLDER)
 
 # download
 download_file(MN_WIKI_URL, MN_WIKI_RAR_FILE)
@@ -63,8 +63,8 @@ def _pre_process(wiki_file_name):
     # we need articles with at least 2 lines
     articles = [d for d in articles if len(d) >= 2]
 
-    # write into file
-    with open(MN_WIKI_FILE, 'a') as f:
+    # write into a single file
+    with open(join(MN_CORPUS_FOLDER, MN_WIKI_FILE), 'a') as f:
         for article in articles:
             for sentence in article:
                 f.write(sentence)
