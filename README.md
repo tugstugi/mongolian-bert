@@ -34,13 +34,40 @@ You can also test whether the SentencePiece model is working as intended:
 >>> s.EncodeAsPieces('Мөнгөө тушаачихсаныхаа дараа мэдэгдээрэй')
 ['▁Мөнгөө', '▁тушаа', 'чихсан', 'ыхаа', '▁дараа', '▁мэдэгд', 'ээрэй']
 ```
+Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k` 
 
 ## Training
-We are going to make multiple experiments, so we need some conventions.
-* each experiment got its own gcloud bucket i.e. `mongolian-bert-32k-512` for vocabulary size 32000 and max_seq_length of 512.
-* each model got its own directory i.e. `model-32k` for a base model with a vocabulary size of 32000 and contains
-  * `bert_config.json` with `vocab_size` same as the SentencePiece vocabulary size
-  * `mn_cased.model` and `mn_cased.vocab`
+
+Some interesting info from the BERT documentation:
+* `max_predictions_per_seq=max_seq_length*masked_lm_prob`: it means for each max seq length, TFRecords must be created again.
+* pretrain 90,000 steps with a sequence length of 128 and then for 10,000 additional steps with a sequence length of 512.
+
+
+## Training for vocab_size=32000
+* model directory is [model-32k](model-32k)
+* bucket name: `gs://mongolian-bert-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert-32k)
+* generate TFRecord files `python3 create_pretraining_data_for_model.py model-32k`
+  * copy the files into gcloud
+  * script will print out also the `INPUT_FILES` 
+
+Train for `max_seq_length=128`:
+```
+python3 bert/run_pretraining.py \
+  --input_file=$INPUT_FILES \
+  --output_dir=gs://mongolian-bert-32k/model \
+  --use_tpu=True \
+  --tpu_name={TPU_ADDRESS} \
+  --num_tpu_cores=8 \
+  --do_train=True \
+  --do_eval=True \
+  --bert_config_file=model-32k/bert_config.json \
+  --train_batch_size=32 \
+  --max_seq_length=128 \
+  --max_predictions_per_seq=20 \
+  --num_train_steps=1000000 \
+  --num_warmup_steps=10000 \
+  --learning_rate=1e-4
+```
 
 
 ## TODO:
@@ -49,7 +76,4 @@ We are going to make multiple experiments, so we need some conventions.
   * english cased: 28996
   * multi lingual cased: 119547 `[PAD][UNK][CLS][SEP][MASK]<S><T>`
   * japanese uncased: 32000 `[PAD][CLS][SEP][MASK]`
-* BERT max_seq_length 128 or longer?
-  * `max_predictions_per_seq=max_seq_length * masked_lm_prob`
-* cased is probably better...
 * ...
