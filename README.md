@@ -46,12 +46,10 @@ Some interesting info from the BERT documentation:
 ## Training for vocab_size=32000
 * model directory is [model-32k](model-32k)
 * bucket name: `gs://mongolian-bert-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert-32k)
-* generate TFRecord files `python3 create_pretraining_data_for_model.py model-32k`
-  * copy the files into gcloud
-  * script will print out also the `INPUT_FILES` 
 
 Train for `max_seq_length=128`:
 ```
+python3 create_pretraining_data_for_model.py --max_seq_length=128 --max_predictions_per_seq=20 model-32k
 python3 bert/run_pretraining.py \
   --input_file=$INPUT_FILES \
   --output_dir=gs://mongolian-bert-32k/model \

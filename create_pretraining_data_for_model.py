@@ -11,6 +11,10 @@ from os.path import abspath, dirname, join, splitext, basename, exists
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("model_directory", type=str,
                     help='a model directory containing bert_config.json and the sentence piece models')
+parser.add_argument("--max_seq_length", type=int,
+                    help='max_seq_length see BERT')
+parser.add_argument("--max_predictions_per_seq", type=int,
+                    help='max_predictions_per_seq see BERT')
 args = parser.parse_args()
 
 
@@ -30,11 +34,10 @@ for f in [MODEL_FILE, VOCAB_FILE]:
 output_files = []
 for input_file in sorted(glob.glob('%s/*.txt' % join(SCRIPT_DIR, MN_CORPUS_FOLDER))):
     input_file = abspath(input_file)
-    for (max_seq, max_pred_per_seq) in [[128, 20], [512, 77]]:
-        output_file = join(args.model_directory, 'maxseq%i-%s.tfrecord' % (max_seq, splitext(basename(input_file))[0]))
-        output_files.append(output_file)
+    output_file = join(args.model_directory, 'maxseq%i-%s.tfrecord' % (args.max_seq_length, splitext(basename(input_file))[0]))
+    output_files.append(output_file)
 
-        command = """python3 %s \
+    command = """python3 %s \
 --input_file=%s \
 --output_file=%s \
 --model_file=%s \
@@ -44,10 +47,10 @@ for input_file in sorted(glob.glob('%s/*.txt' % join(SCRIPT_DIR, MN_CORPUS_FOLDE
 --max_predictions_per_seq=%i \
 --masked_lm_prob=0.15 \
 --random_seed=12345 \
---dupe_factor=5""" % (PARENT_SCRIPT, input_file, output_file, MODEL_FILE, VOCAB_FILE, max_seq, max_pred_per_seq)
-
-        print(command)
-        os.system(command)
+--dupe_factor=5""" % (PARENT_SCRIPT, input_file, output_file, MODEL_FILE, VOCAB_FILE,
+                      args.max_seq_length, args.max_predictions_per_seq)
+    print(command)
+    os.system(command)
 
 print('done')
 print('\n\n\n')
