@@ -43,22 +43,36 @@ Some interesting info from the BERT documentation:
 * pretrain 90,000 steps with a sequence length of 128 and then for 10,000 additional steps with a sequence length of 512.
 
 
-## Training for vocab_size=32000
+### Troubleshooting
+* If the training script get a permission denies, execute on the VM `gcloud auth application-default login`
+* TPU service account added into the storage permission?
+* TPU name same as the model name?
+
+
+### Training for vocab_size=32000
 * model directory is [model-32k](model-32k)
-* bucket name: `gs://mongolian-bert-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert-32k)
+* bucket name: `gs://mongolian-bert/model-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
+
+Generate data for `max_seq_length=128` and copy them into bucket:
+```
+python3 create_pretraining_data_for_model.py --max_seq_length=128 --max_predictions_per_seq=20 model-32k
+gsutil cp maxseq128*.tfrecord gs://mongolian-bert/model-32k/
+```
 
 Train for `max_seq_length=128`:
 ```
-python3 create_pretraining_data_for_model.py --max_seq_length=128 --max_predictions_per_seq=20 model-32k
+export MODEL_DIR=model-32k
+export TPU_ADDRESS=$MODEL_DIR
+export INPUT_FILES=gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_1.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_10.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_11.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_12.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_13.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_14.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_15.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_16.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_17.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_18.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_19.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_2.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_3.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_4.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_5.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_6.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_7.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_8.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_news_700m_9.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq128-mn_wiki.tfrecord
 python3 bert/run_pretraining.py \
   --input_file=$INPUT_FILES \
-  --output_dir=gs://mongolian-bert-32k/model \
+  --output_dir=gs://mongolian-bert/$MODEL_DIR/model \
   --use_tpu=True \
-  --tpu_name={TPU_ADDRESS} \
+  --tpu_name=$TPU_ADDRESS \
   --num_tpu_cores=8 \
   --do_train=True \
   --do_eval=True \
-  --bert_config_file=model-32k/bert_config.json \
+  --bert_config_file=$MODEL_DIR/bert_config.json \
   --train_batch_size=256 \
   --max_seq_length=128 \
   --max_predictions_per_seq=20 \

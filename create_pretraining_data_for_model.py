@@ -50,9 +50,10 @@ for input_file in sorted(glob.glob('%s/*.txt' % join(SCRIPT_DIR, MN_CORPUS_FOLDE
 --dupe_factor=5""" % (PARENT_SCRIPT, input_file, output_file, MODEL_FILE, VOCAB_FILE,
                       args.max_seq_length, args.max_predictions_per_seq)
     print(command)
-    os.system(command)
+    #os.system(command)
 
 print('done')
 print('\n\n\n')
-print('tf record files:\n')
+print('tf record files %i :\n' % len(output_files))
+output_files = ["gs://mongolian-bert/$MODEL_DIR/%s" % basename(f) for f in output_files]
 print('export INPUT_FILES=%s' % ','.join(output_files))
