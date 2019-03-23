@@ -41,6 +41,7 @@ Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k`
 
 * [model-32k](model-32k) for 1.000.000 steps with batch size 256
   * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
+  * 1000 step in 6 minutes: estimated time 4 days
  
 Planned:
 * model-32k-512 for training from scratch with max_seq_length=512 with batch size 48
