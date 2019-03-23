@@ -50,7 +50,7 @@ for input_file in sorted(glob.glob('%s/*.txt' % join(SCRIPT_DIR, MN_CORPUS_FOLDE
 --dupe_factor=5""" % (PARENT_SCRIPT, input_file, output_file, MODEL_FILE, VOCAB_FILE,
                       args.max_seq_length, args.max_predictions_per_seq)
     print(command)
-    #os.system(command)
+    os.system(command)
 
 print('done')
 print('\n\n\n')
