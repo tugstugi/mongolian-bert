@@ -40,11 +40,11 @@ Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k`
 ## Active Training Models
 
 * [model-32k](model-32k) for 1.000.000 steps with batch size 256
-  * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
+  * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k/model)
   * 1000 step in 6 minutes: estimated time 4 days
- 
-Planned:
-* model-32k-512 for training from scratch with max_seq_length=512 with batch size 48
+* model-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 64
+  * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k-512/model)
+  * estimated time 16 days
 
 ## Training
 
@@ -61,12 +61,13 @@ Some interesting info from the BERT documentation:
 
 ### Training for vocab_size=32000
 * model directory is [model-32k](model-32k)
-* bucket name: `gs://mongolian-bert/model-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
+* bucket name for 128: `gs://mongolian-bert/model-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
+* bucket name for 512: `gs://mongolian-bert/model-32k-512` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k-512)
 
 Generate TFRecords for `max_seq_length=128` and copy them into bucket:
 ```
 python3 create_pretraining_data_for_model.py --max_seq_length=128 --max_predictions_per_seq=20 model-32k
-gsutil cp maxseq128*.tfrecord gs://mongolian-bert/model-32k/
+gsutil cp model-32k/maxseq128*.tfrecord gs://mongolian-bert/model-32k/
 ```
 
 Train for `max_seq_length=128`:
@@ -94,9 +95,29 @@ python3 bert/run_pretraining.py \
 Generate TFRecords for `max_seq_length=512` and copy them into bucket (see `max_predictions_per_seq`):
 ```
 python3 create_pretraining_data_for_model.py --max_seq_length=512 --max_predictions_per_seq=77 model-32k
-gsutil cp maxseq128*.tfrecord gs://mongolian-bert/model-32k/
+gsutil cp model-32k-512/maxseq512*.tfrecord gs://mongolian-bert/model-32k-512/
 ```
-batch size 48?
+Train for `max_seq_length=512`:
+```
+export MODEL_DIR=model-32k-512
+export TPU_ADDRESS=$MODEL_DIR
+export INPUT_FILES=gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_1.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_10.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_11.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_12.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_13.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_14.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_15.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_16.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_17.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_18.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_19.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_2.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_3.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_4.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_5.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_6.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_7.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_8.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_9.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_wiki.tfrecord
+python3 bert/run_pretraining.py \
+  --input_file=$INPUT_FILES \
+  --output_dir=gs://mongolian-bert/$MODEL_DIR/model \
+  --use_tpu=True \
+  --tpu_name=$TPU_ADDRESS \
+  --num_tpu_cores=8 \
+  --do_train=True \
+  --do_eval=True \
+  --bert_config_file=model-32k/bert_config.json \
+  --train_batch_size=64 \
+  --max_seq_length=512 \
+  --max_predictions_per_seq=77 \
+  --num_train_steps=1000000 \
+  --num_warmup_steps=10000 \
+  --learning_rate=1e-4
+```
 
 
 ## TODO:
