@@ -34,7 +34,16 @@ You can also test whether the SentencePiece model is working as intended:
 >>> s.EncodeAsPieces('Мөнгөө тушаачихсаныхаа дараа мэдэгдээрэй')
 ['▁Мөнгөө', '▁тушаа', 'чихсан', 'ыхаа', '▁дараа', '▁мэдэгд', 'ээрэй']
 ```
-Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k` 
+Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k`
+
+
+## Active Training Models
+
+* [model-32k](model-32k) for 1.000.000 steps with batch size 256
+  * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
+ 
+Planned:
+* model-32k-512 for training from scratch with max_seq_length=512 with batch size 48
 
 ## Training
 
@@ -53,7 +62,7 @@ Some interesting info from the BERT documentation:
 * model directory is [model-32k](model-32k)
 * bucket name: `gs://mongolian-bert/model-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
 
-Generate data for `max_seq_length=128` and copy them into bucket:
+Generate TFRecords for `max_seq_length=128` and copy them into bucket:
 ```
 python3 create_pretraining_data_for_model.py --max_seq_length=128 --max_predictions_per_seq=20 model-32k
 gsutil cp maxseq128*.tfrecord gs://mongolian-bert/model-32k/
@@ -80,6 +89,13 @@ python3 bert/run_pretraining.py \
   --num_warmup_steps=10000 \
   --learning_rate=1e-4
 ```
+
+Generate TFRecords for `max_seq_length=512` and copy them into bucket (see `max_predictions_per_seq`):
+```
+python3 create_pretraining_data_for_model.py --max_seq_length=512 --max_predictions_per_seq=77 model-32k
+gsutil cp maxseq128*.tfrecord gs://mongolian-bert/model-32k/
+```
+batch size 48?
 
 
 ## TODO:
