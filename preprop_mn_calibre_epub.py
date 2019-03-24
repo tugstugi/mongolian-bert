@@ -15,6 +15,7 @@ __author__ = 'Sharavsambuu, Erdene-Ochir Tuguldur'
 import re
 import sys
 from os.path import exists, join, dirname
+import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 from utils import sentence_tokenize
@@ -99,19 +100,19 @@ EMPTY_LINE = 'EMPTY_LINE'
 MN_BOOK_CORPUS_DIR = join(dirname(__file__), 'mn_book_corpus')
 
 
-def _process_section(section):
+def _process_section(section, main_class):
     content = section.get_content().decode("utf-8")
     soup = BeautifulSoup(content, 'html.parser')
 
     lines = []
     children = soup.find('body').findChildren()
     for child in children:
-        if child.name == 'p':
-            lines.append(EMPTY_LINE)
-        elif child.name == 'div' and child.get('class') is not None and 'calibre2' in child.get('class'):
+        if child.get('class') is not None and main_class in child.get('class'):
             line = child.text.strip()
             if len(line) > 0:
                 lines.append(line)
+        else:
+            lines.append(EMPTY_LINE)
     if len(lines) >= 2:
         lines = _unwrap_lines(lines)
     lines = [_process_line(line) for line in lines]
@@ -124,14 +125,31 @@ def _process_section(section):
     return sentences
 
 
+def _detect_main_class(book):
+    """Detect the most common CSS class."""
+    css_classes = []
+    for section in book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
+        content = section.get_content().decode("utf-8")
+        soup = BeautifulSoup(content, 'html.parser')
+        children = soup.find('body').findChildren()
+        for child in children:
+            if child.get('class') is not None:
+                css_classes += child.get('class')
+    # return the most common css class
+    return max(set(css_classes), key=css_classes.count)
+
+
 def _process_calibre_epub(file_name):
     print("pre processing '%s'..." % file_name)
     book = epub.read_epub(file_name)
 
+    # detect main CSS class, everything will be ignored
+    main_class = _detect_main_class(book)
+
     sentences = []
-    for (section, _) in book.spine:
+    for section in book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
         print("\tpre processing '%s'..." % section)
-        sentences += _process_section(book.get_item_with_id(section))
+        sentences += _process_section(section, main_class)
 
     # sanity check
     if len([s for s in sentences if s != EMPTY_LINE]) < 100:
