@@ -39,22 +39,19 @@ def clean_html(soup):
     return soup.get_text()
 
 def preprocess(text):
-    #text = re.sub(r'\n\s*\n', '\n\n', text)
-    #return text
     sentences = tokenize.sent_tokenize(text)
-    #for sent in sentences:
-    #    pass
-        #print(sent)
-    #sentences = [sent.replace('\r\n', ' ') for sent in sentences]
-    return sentences
-
-texts = ""
+    sentences = [sent.replace('\n', ' ').replace('\r', '').strip() for sent in sentences]
+    result = ""
+    for sent in sentences:
+        result = result + sent + "\n"
+    return result
 
 def get_spine_key(book):
     spine_keys = {id:(ii,id) for (ii,(id,show)) in enumerate(book.spine)}
     past_end   = len(spine_keys)
     return lambda itm: spine_keys.get(itm.get_id(), (past_end,itm.get_id()))
 
+all_text = ""
 
 if (len(sys.argv)>1):
     bookpath = sys.argv[1]
@@ -69,9 +66,9 @@ if (len(sys.argv)>1):
         if soup is not None:
             text = clean_html(soup)
             text = preprocess(text)
-            print(text)
+            if len(text)==0:
+                continue
+            all_text = all_text + text + "\n"
 
-
-    # reduce multiple empty lines to one
-    #print(texts)
+    print(all_text.strip())
     pass
