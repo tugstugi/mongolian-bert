@@ -142,6 +142,9 @@ def _detect_main_class(book):
 def _process_calibre_epub(file_name):
     print("pre processing '%s'..." % file_name)
     book = epub.read_epub(file_name)
+    title = re.sub(r"\s+", '_', book.title.lower().strip())
+    title = title.replace('/', '_')
+    print("  %s" % title)
 
     # detect main CSS class, everything will be ignored
     main_class = _detect_main_class(book)
@@ -153,8 +156,13 @@ def _process_calibre_epub(file_name):
 
     # sanity check
     if len([s for s in sentences if s != EMPTY_LINE]) < 100:
-        print("Warning too few sentences!")
-        sys.exit(1)
+        print("Warning for '%s': too few sentences!" % file_name)
+        return
+
+    # remove some lines
+    def is_valid_line(l):
+        return len(l) > 0 and not l.startswith('©')
+    sentences = [s for s in sentences if is_valid_line(s)]
 
     # grouped sentences
     grouped_sentences = [[]]
@@ -166,7 +174,6 @@ def _process_calibre_epub(file_name):
     # at least 2 sentences
     grouped_sentences = [s for s in grouped_sentences if len(s) >= 2]
 
-    title = re.sub(r"\s+", '_', book.title.lower().strip())
     output_file_name = join(MN_BOOK_CORPUS_DIR, '%s.txt' % title)
     print("saving into: '%s'" % output_file_name)
     if exists(output_file_name):
@@ -182,10 +189,16 @@ def _process_calibre_epub(file_name):
                 output_file.write('\n')
             output_file.write('\n')
 
+    # sanity check
+    if total < 20:
+        print("Warning for '%s': too few sentences!" % file_name)
+
     print('Done: %i lines\n' % total)
 
 
 if __name__ == "__main__":
     # import sys, doctest; doctest.testmod(); sys.exit(0)
-
-    _process_calibre_epub(sys.argv[1])
+    import glob
+    for file_name in sorted(glob.glob('%s/*.epub' % sys.argv[1])):
+        print(file_name)
+        _process_calibre_epub(file_name)
