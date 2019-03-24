@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """Pre processed a epub converted by Calibre.
 Use following options to convert with Calibre:
-  -
+  - Look & Feel -> Text -> Text justification -> Justify Text
+  - Look & Feel -> Text -> Text justification -> Smarten punctuation
+  - Heuristic processing -> Enable heuristic processing
+  - Heuristic processing -> deselect Unwrap lines
+  - Heuristic processing -> deselect Italicize common words and patterns
+  - EPUB output -> Do not split on page breaks
+  - EPUB output -> Flatten EPUB file structure
+  - EPUB output -> Split files larger than 10000 KB
 """
 __author__ = 'Sharavsambuu, Erdene-Ochir Tuguldur'
 
