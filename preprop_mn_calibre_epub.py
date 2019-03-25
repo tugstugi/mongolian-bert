@@ -146,6 +146,12 @@ def _process_calibre_epub(file_name):
     title = title.replace('/', '_')
     print("  %s" % title)
 
+    output_file_name = join(MN_BOOK_CORPUS_DIR, '%s.txt' % title)
+    print("saving into: '%s'" % output_file_name)
+    if exists(output_file_name):
+        print("'%s' already exists!" % output_file_name)
+        return
+
     # detect main CSS class, everything will be ignored
     main_class = _detect_main_class(book)
 
@@ -161,7 +167,7 @@ def _process_calibre_epub(file_name):
 
     # remove some lines
     def is_valid_line(l):
-        return len(l) > 0 and not l.startswith('©')
+        return len(l) > 0 and not l.startswith('©') and 'store.mn' not in l
     sentences = [s for s in sentences if is_valid_line(s)]
 
     # grouped sentences
@@ -173,12 +179,6 @@ def _process_calibre_epub(file_name):
             grouped_sentences[-1].append(sentence)
     # at least 2 sentences
     grouped_sentences = [s for s in grouped_sentences if len(s) >= 2]
-
-    output_file_name = join(MN_BOOK_CORPUS_DIR, '%s.txt' % title)
-    print("saving into: '%s'" % output_file_name)
-    if exists(output_file_name):
-        print("'%s' already exists!" % output_file_name)
-        sys.exit(1)
 
     total = 0
     with open(output_file_name, 'w') as output_file:
