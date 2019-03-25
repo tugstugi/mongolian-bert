@@ -45,6 +45,9 @@ Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k`
 * model-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 64
   * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k-512/model)
   * estimated time 16 days
+* model-large-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 24
+  * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-large-32k-512/model)
+  
 
 ## Training
 
@@ -123,7 +126,7 @@ Traing BERT-Large for `max_seq_length=512`:
 ```
 export MODEL_DIR=model-large-32k-512
 export TPU_ADDRESS=$MODEL_DIR
-export INPUT_FILES=gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_1.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_10.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_11.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_12.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_13.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_14.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_15.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_16.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_17.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_18.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_19.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_2.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_3.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_4.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_5.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_6.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_7.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_8.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_9.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_wiki.tfrecord
+export INPUT_FILES=gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_books_1.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_books_2.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_1.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_10.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_11.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_12.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_13.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_14.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_15.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_16.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_17.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_18.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_19.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_2.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_3.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_4.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_5.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_6.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_7.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_8.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_news_700m_9.tfrecord,gs://mongolian-bert/$MODEL_DIR/maxseq512-mn_wiki.tfrecord
 python3 bert/run_pretraining.py \
   --input_file=$INPUT_FILES \
   --output_dir=gs://mongolian-bert/$MODEL_DIR/model \
