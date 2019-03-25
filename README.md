@@ -45,7 +45,7 @@ Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k`
 * model-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 64
   * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k-512/model)
   * estimated time 16 days
-* model-large-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 24
+* model-large-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 32
   * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-large-32k-512/model)
   
 
@@ -136,12 +136,13 @@ python3 bert/run_pretraining.py \
   --do_train=True \
   --do_eval=True \
   --bert_config_file=$MODEL_DIR/bert_config.json \
-  --train_batch_size=24 \
+  --train_batch_size=32 \
   --max_seq_length=512 \
   --max_predictions_per_seq=77 \
   --num_train_steps=1000000 \
   --num_warmup_steps=10000 \
-  --learning_rate=1e-4
+  --learning_rate=1e-4 \
+  --save_checkpoints_steps=10000
 ```
 
 
