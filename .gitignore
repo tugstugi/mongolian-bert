@@ -8,7 +8,6 @@ mn_wiki.txt
 mn_news_700m.txt
 mn_news_700m.rar
 tmp_mn_news_700m/
-tmp_model/
 
 mn_wiki.bz2
 tmp_mn_wiki/
@@ -17,5 +16,8 @@ mn_corpus
 ebooks/
 mn_book_corpus
 
-.ipynb_checkpoints/
+.ipynb_checkpoints
+pytorch_model.bin
+model.ckpt*
 
+tmp_model/

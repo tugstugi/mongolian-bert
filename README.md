@@ -1,3 +1,7 @@
+## Misc
+
+* Masked LM notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
+
 ## Install
 
 Checkout the project and install dependencies:
@@ -47,7 +51,7 @@ Move `mn_cased.model` and `mn_cased.vocab` into the folder `model-32k`
   * estimated time 16 days
 * model-large-32k-512 for training from scratch with max_seq_length=512/max_predictions_per_seq=77 with batch size 32
   * checkpoints and tensorboard logs [here](https://console.cloud.google.com/storage/browser/mongolian-bert/model-large-32k-512/model)
-  
+
 
 ## Training
 
@@ -122,7 +126,7 @@ python3 bert/run_pretraining.py \
   --learning_rate=1e-4
 ```
 
-Traing BERT-Large for `max_seq_length=512`: 
+Traing BERT-Large for `max_seq_length=512`:
 ```
 export MODEL_DIR=model-large-32k-512
 export TPU_ADDRESS=$MODEL_DIR
