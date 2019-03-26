@@ -15,3 +15,7 @@ tmp_mn_wiki/
 mn_corpus
 ebooks/
 mn_book_corpus
+
+.ipynb_checkpoints
+pytorch_model.bin
+model.ckpt*
