@@ -1,7 +1,9 @@
 ## Misc
 
 * Masked LM notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
-* Fine tuning on eduge classification notebook [![Open In Colab, 128](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10CLQcGpXfJ_MbkpfVHdzVORmow3M1xXr) [![Open In Colab, 512](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1CnGd2OnNDlxe6ZUjmOa7zg__CcKk5X85)
+* Fine tuning on eduge classification notebook 
+  sentence length 128 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10CLQcGpXfJ_MbkpfVHdzVORmow3M1xXr) 
+  sentence length 512 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1CnGd2OnNDlxe6ZUjmOa7zg__CcKk5X85)
 
 ## Install
 
