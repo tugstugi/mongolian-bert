@@ -21,8 +21,8 @@ args = parser.parse_args()
 SCRIPT_DIR = dirname(abspath(__file__))
 PARENT_SCRIPT = join(SCRIPT_DIR, 'create_pretraining_data.py')
 MN_CORPUS_FOLDER = 'mn_corpus'
-MODEL_FILE = join(args.model_directory, 'mn_cased.model')
-VOCAB_FILE = join(args.model_directory, 'mn_cased.vocab')
+MODEL_FILE = join(args.model_directory, 'mn_uncased.model')
+VOCAB_FILE = join(args.model_directory, 'mn_uncased.vocab')
 
 # check whether sentence piece models are existing
 for f in [MODEL_FILE, VOCAB_FILE]:
@@ -42,7 +42,7 @@ for input_file in sorted(glob.glob('%s/*.txt' % join(SCRIPT_DIR, MN_CORPUS_FOLDE
 --output_file=%s \
 --model_file=%s \
 --vocab_file=%s \
---do_lower_case=False \
+--do_lower_case=True \
 --max_seq_length=%i \
 --max_predictions_per_seq=%i \
 --masked_lm_prob=0.15 \
