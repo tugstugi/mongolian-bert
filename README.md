@@ -1,11 +1,10 @@
-## Misc
+## Notebooks
 
 * Masked LM notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
-* Fine tuning on eduge classification notebook 
-    
-    sentence length 128 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10CLQcGpXfJ_MbkpfVHdzVORmow3M1xXr) 
-    
-    sentence length 512 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1CnGd2OnNDlxe6ZUjmOa7zg__CcKk5X85)
+* Fine tuning on eduge classification notebooks
+  * SVM baseline [![Open In Colab](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/Eduge_SVM_baseline.ipynb)
+  * sentence length 128 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10CLQcGpXfJ_MbkpfVHdzVORmow3M1xXr)
+  * sentence length 512 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1CnGd2OnNDlxe6ZUjmOa7zg__CcKk5X85)
 
 ## Install
 
@@ -190,7 +189,7 @@ python3 bert/run_pretraining.py \
   --do_train=True \
   --do_eval=True \
   --bert_config_file=$MODEL_DIR/bert_config.json \
-  --train_batch_size=64 \
+  --train_batch_size=32 \
   --max_seq_length=512 \
   --max_predictions_per_seq=77 \
   --num_train_steps=1000000 \
