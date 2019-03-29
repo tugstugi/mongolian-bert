@@ -71,7 +71,7 @@ Some interesting info from the BERT documentation:
 * TPU name same as the model name?
 
 
-### Training for vocab_size=32000
+### Training CASED for vocab_size=32000
 * model directory is [model-32k](model-32k)
 * bucket name for 128: `gs://mongolian-bert/model-32k` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k)
 * bucket name for 512: `gs://mongolian-bert/model-32k-512` and [bucket URL](https://console.cloud.google.com/storage/browser/mongolian-bert/model-32k-512)
@@ -153,6 +153,53 @@ python3 bert/run_pretraining.py \
   --learning_rate=1e-4 \
   --save_checkpoints_steps=10000
 ```
+
+### Training UNCASED for vocab_size=32000 and max_seq_length=512
+Base:
+```
+export MODEL_DIR=model-uncased-32k
+export TPU_ADDRESS=$MODEL_DIR
+export INPUT_FILES=gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_1.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_10.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_11.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_12.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_13.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_14.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_15.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_16.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_17.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_18.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_19.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_2.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_3.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_4.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_5.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_6.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_7.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_8.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_9.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_wiki.tfrecord
+python3 bert/run_pretraining.py \
+  --input_file=$INPUT_FILES \
+  --output_dir=gs://mongolian-bert/$MODEL_DIR/model \
+  --use_tpu=True \
+  --tpu_name=$TPU_ADDRESS \
+  --num_tpu_cores=8 \
+  --do_train=True \
+  --do_eval=True \
+  --bert_config_file=$MODEL_DIR/bert_config.json \
+  --train_batch_size=64 \
+  --max_seq_length=512 \
+  --max_predictions_per_seq=77 \
+  --num_train_steps=1000000 \
+  --num_warmup_steps=10000 \
+  --learning_rate=1e-4
+```
+Large:
+```
+export MODEL_DIR=model-uncased-large-32k
+export TPU_ADDRESS=$MODEL_DIR
+export INPUT_FILES=gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_1.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_10.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_11.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_12.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_13.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_14.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_15.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_16.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_17.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_18.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_19.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_2.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_3.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_4.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_5.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_6.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_7.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_8.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_news_700m_9.tfrecord,gs://mongolian-bert/data-uncased/maxseq512-mn_wiki.tfrecord
+python3 bert/run_pretraining.py \
+  --input_file=$INPUT_FILES \
+  --output_dir=gs://mongolian-bert/$MODEL_DIR/model \
+  --use_tpu=True \
+  --tpu_name=$TPU_ADDRESS \
+  --num_tpu_cores=8 \
+  --do_train=True \
+  --do_eval=True \
+  --bert_config_file=$MODEL_DIR/bert_config.json \
+  --train_batch_size=64 \
+  --max_seq_length=512 \
+  --max_predictions_per_seq=77 \
+  --num_train_steps=1000000 \
+  --num_warmup_steps=10000 \
+  --learning_rate=1e-4 \
+  --save_checkpoints_steps=10000
+```
+
+
 
 
 ## TODO:
