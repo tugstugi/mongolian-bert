@@ -11,6 +11,9 @@ This repository is based on the following open source projects: [google-research
 ## Models
 
 We use [SentencePiece](https://github.com/google/sentencepiece) with a vocabulary size 32000 as the text tokenizer.
+You can use the masked language model notebook
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
+to test how good the pre-trained models could predict masked Mongolian words.
 
 * cased BERT-Base: [TensorFlow model](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) and [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv)
 * cased BERT-Large: to be released
@@ -19,16 +22,18 @@ We use [SentencePiece](https://github.com/google/sentencepiece) with a vocabular
 
 ### uncased BERT-base
 
-## Notebooks
+## Finetuning
 
-* Masked LM notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
-* Fine tuning on eduge classification notebooks
-  * SVM baseline [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/Eduge_SVM_baseline.ipynb)
-  * sentence length 128 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10CLQcGpXfJ_MbkpfVHdzVORmow3M1xXr)
-  * sentence length 512 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1CnGd2OnNDlxe6ZUjmOa7zg__CcKk5X85)
-* Semantic textual similarity [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/18fCom7HrskK7mqrp3FHNT1l3guONgZn4)
+To be released.
 
-## Install
+## Pre-Training
+
+This repo already provides pre-trained models. If you really want to pre-train from scratch, you will need a TPU.
+A base model can be trained in 13 days (4M steps) on TPUv2. For a big model, you will need more than a month.
+We have used `max_seq_length=512` instead of training first with `max_seq_length=128` and then with `max_seq_length=512`
+because it had better masked LM accuracy.
+
+### Install
 
 Checkout the project and install dependencies:
 ```
@@ -37,16 +42,16 @@ pip3 install -r requirements.txt
 ```
 
 
-## Data preparation
+### Data preparation
 
-Download the Mongolian Wikipedia and the 700 million word Mongolian news data set and pre process them into a directory `mn_corpus/`:
-(you can also download it from [here](https://www.dropbox.com/s/l4wldeuyzi0x26k/mn_corpus.tar.gz?dl=1))
+Download the Mongolian Wikipedia and the 700 million word Mongolian news data set and pre process them into the directory `mn_corpus/`:
 ```
 # Mongolian Wikipedia
-python3 dl_and_preprop_mn_wiki.py
+python3 datasets/dl_and_preprop_mn_wiki.py
 # 700 million words Mongolian news data set
-python3 dl_and_preprop_mn_news.py
+python3 datasets/dl_and_preprop_mn_news.py
 ```
+After pre-processing, the dataset will contain around 500M words.
 
 ## Train SentencePiece vocabulary
 
