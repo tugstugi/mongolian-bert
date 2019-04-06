@@ -20,7 +20,7 @@ to test how good the pre-trained models could predict masked Mongolian words.
 * uncased BERT-Base: to be released
 * uncased BERT-Large: to be released
 
-### Uncased BERT-Base
+### Cased BERT-Base
 Download either [TensorFlow checkpoint](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) or
 [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv). Eval results:
 ```
