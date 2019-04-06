@@ -10,17 +10,28 @@ This repository is based on the following open source projects: [google-research
 
 ## Models
 
-We use [SentencePiece](https://github.com/google/sentencepiece) with a vocabulary size 32000 as the text tokenizer.
+[SentencePiece](https://github.com/google/sentencepiece) with a vocabulary size 32000 is used as the text tokenizer.
 You can use the masked language model notebook
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
 to test how good the pre-trained models could predict masked Mongolian words.
 
-* cased BERT-Base: [TensorFlow model](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) and [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv)
+* cased BERT-Base: [TensorFlow checkpoint](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) and [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv)
 * cased BERT-Large: to be released
 * uncased BERT-Base: to be released
 * uncased BERT-Large: to be released
 
-### uncased BERT-base
+### Uncased BERT-Base
+Download either [TensorFlow checkpoint](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) or
+[PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv). Eval results:
+```
+global_step = 4000000
+loss = 1.3476765
+masked_lm_accuracy = 0.7069192
+masked_lm_loss = 1.2822781
+next_sentence_accuracy = 0.99875
+next_sentence_loss = 0.0038988923
+```
+
 
 ## Finetuning
 
