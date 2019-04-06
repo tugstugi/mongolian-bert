@@ -37,6 +37,8 @@ next_sentence_loss = 0.0038988923
 
 To be released.
 
+Finetuning for Mongolian text classification will be released in [sharavsambuu/mongolian-text-classification](https://github.com/sharavsambuu/mongolian-text-classification.)
+
 ## Pre-Training
 
 This repo already provides pre-trained models. If you really want to pre-train from scratch, you will need a TPU.
