@@ -1,3 +1,24 @@
+# Mongolian BERT models
+
+This repository contains pre-trained Mongolian [BERT](https://arxiv.org/abs/1810.04805) models trained by [tugstugi](https://github.com/tugstugi), [enod](https://github.com/enod) and [sharavsambuu](https://github.com/sharavsambuu).
+Special thanks to [nabar](https://github.com/nabar) who provided 5x TPUs.
+
+
+This repository is based on the following open source projects: [google-research/bert](https://github.com/google-research/bert/),
+[huggingface/pytorch-pretrained-BERT](https://github.com/huggingface/pytorch-pretrained-BERT) and [yoheikikuta/bert-japanese](https://github.com/yoheikikuta/bert-japanese).
+
+
+## Models
+
+We use [SentencePiece](https://github.com/google/sentencepiece) with a vocabulary size 32000 as the text tokenizer.
+
+* cased BERT-Base: [TensorFlow model](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) and [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv)
+* cased BERT-Large: to be released
+* uncased BERT-Base: to be released
+* uncased BERT-Large: to be released
+
+### uncased BERT-base
+
 ## Notebooks
 
 * Masked LM notebook [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tugstugi/mongolian-bert/blob/master/notebooks/MaskedLM.ipynb)
