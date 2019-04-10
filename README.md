@@ -124,7 +124,7 @@ For a large model, use `bert_config_file=bert_configs/bert_large_config.json` an
 ### Citation
 ```
 @misc{mongolian-bert,
-  author = {Erdene-Ochir, Tuguldur and Gunchinish, Sharavsambuu and Bataa, Enkhbold},
+  author = {Tuguldur, Erdene-Ochir and Gunchinish, Sharavsambuu and Bataa, Enkhbold},
   title = {BERT Pretrained Models on Mongolian Datasets},
   year = {2019},
   publisher = {GitHub},
