@@ -121,3 +121,14 @@ python3 bert/run_pretraining.py \
 ```
 For a large model, use `bert_config_file=bert_configs/bert_large_config.json` and `train_batch_size=32`.
 
+### Citation
+```
+@misc{mongolian-bert,
+  author = {Erdene-Ochir, Tuguldur and Gunchinish, Sharavsambuu and Bataa, Enkhbold},
+  title = {BERT Pretrained Models on Mongolian Datasets},
+  year = {2019},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/tugstugi/mongolian-bert/}}
+}
+```
