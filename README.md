@@ -17,7 +17,7 @@ to test how good the pre-trained models could predict masked Mongolian words.
 
 * cased BERT-Base: [TensorFlow checkpoint](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) and [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv)
 * cased BERT-Large: to be released
-* uncased BERT-Base: to be released
+* uncased BERT-Base: [TensorFlow checkpoint](https://drive.google.com/file/d/1t1r2lGn_7MncBBDcYZWykZndV-BcBJxX) and [PyTorch model](https://drive.google.com/file/d/1SnRKbLbwyRsDVCW34Li7zRrpmkKA1VVO)
 * uncased BERT-Large: to be released
 
 ### Cased BERT-Base
@@ -30,6 +30,18 @@ masked_lm_accuracy = 0.7069192
 masked_lm_loss = 1.2822781
 next_sentence_accuracy = 0.99875
 next_sentence_loss = 0.0038988923
+```
+
+### Uncased BERT-Base
+Download either [TensorFlow checkpoint](https://drive.google.com/file/d/1t1r2lGn_7MncBBDcYZWykZndV-BcBJxX) or
+[PyTorch model](https://drive.google.com/file/d/1SnRKbLbwyRsDVCW34Li7zRrpmkKA1VVO). Eval results:
+```
+global_step = 4000000
+loss = 1.3115116
+masked_lm_accuracy = 0.7018335
+masked_lm_loss = 1.3155857
+next_sentence_accuracy = 0.995
+next_sentence_loss = 0.015816934
 ```
 
 
