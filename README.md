@@ -52,6 +52,8 @@ To be released.
 Finetuning for Mongolian text classification will be released in
 [sharavsambuu/mongolian-text-classification](https://github.com/sharavsambuu/mongolian-text-classification).
 
+For finetuning on [Mongolian NER dataset](https://github.com/tugstugi/mongolian-nlp/blob/master/datasets/NER_v1.0.json.gz) - Follow the guide on [mongolian-bert-ner](https://github.com/enod/mongolian-bert-ner) 
+
 ## Pre-Training
 
 This repo already provides pre-trained models. If you really want to pre-train from scratch, you will need a TPU.
