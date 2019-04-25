@@ -46,13 +46,10 @@ next_sentence_loss = 0.015816934
 
 
 ## Finetuning
+This repo contains only pre-trained BERT models, for finetuning see:
 
-To be released.
-
-Finetuning for Mongolian text classification will be released in
-[sharavsambuu/mongolian-text-classification](https://github.com/sharavsambuu/mongolian-text-classification).
-
-For finetuning on [Mongolian NER dataset](https://github.com/tugstugi/mongolian-nlp/blob/master/datasets/NER_v1.0.json.gz) - Follow the guide on [mongolian-bert-ner](https://github.com/enod/mongolian-bert-ner) 
+* Mongolian named entity recognition [enod/mongolian-bert-ner](https://github.com/enod/mongolian-bert-ner) using the [Mongolian NER dataset](https://github.com/tugstugi/mongolian-nlp/blob/master/datasets/NER_v1.0.json.gz)
+* Mongolian text classification [sharavsambuu/mongolian-text-classification](https://github.com/sharavsambuu/mongolian-text-classification) using the [Eduge news classification dataset](https://github.com/tugstugi/mongolian-nlp/blob/master/datasets/eduge.csv.gz)
 
 ## Pre-Training
 
