@@ -44,12 +44,16 @@ next_sentence_accuracy = 0.995
 next_sentence_loss = 0.015816934
 ```
 
+## Loading in Tensorflow 2.x
+Little changes needed in order to load weights as Keras Layer in Tensorflow 2.x 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ReDLH2DDiCt_Y800vGub8OuYJlR-TsZw)
 
 ## Finetuning
 This repo contains only pre-trained BERT models, for finetuning see:
 
 * Mongolian named entity recognition [enod/mongolian-bert-ner](https://github.com/enod/mongolian-bert-ner) using the [Mongolian NER dataset](https://github.com/tugstugi/mongolian-nlp/blob/master/datasets/NER_v1.0.json.gz)
 * Mongolian text classification [sharavsambuu/mongolian-text-classification](https://github.com/sharavsambuu/mongolian-text-classification) using the [Eduge news classification dataset](https://github.com/tugstugi/mongolian-nlp/blob/master/datasets/eduge.csv.gz)
+
 
 ## Pre-Training
 
