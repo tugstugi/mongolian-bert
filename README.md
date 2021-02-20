@@ -16,9 +16,9 @@ You can use the masked language model notebook
 to test how good the pre-trained models could predict masked Mongolian words.
 
 * cased BERT-Base: [TensorFlow checkpoint](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) and [PyTorch model](https://drive.google.com/file/d/11Adpo6DorPgpE8z1lL6rvZAMHLEfnJwv)
-* cased BERT-Large: to be released
+* cased BERT-Large: [HuggingFace](https://huggingface.co/bayartsogt/bert-large-mongolian-cased)
 * uncased BERT-Base: [TensorFlow checkpoint](https://drive.google.com/file/d/1t1r2lGn_7MncBBDcYZWykZndV-BcBJxX) and [PyTorch model](https://drive.google.com/file/d/1SnRKbLbwyRsDVCW34Li7zRrpmkKA1VVO)
-* uncased BERT-Large: to be released
+* uncased BERT-Large: [HuggingFace](https://huggingface.co/bayartsogt/bert-large-mongolian-uncased)
 
 ### Cased BERT-Base
 Download either [TensorFlow checkpoint](https://drive.google.com/file/d/1MOZUKppfX45BEh7nxQ5AvzK-8wIUITr8) or
@@ -45,7 +45,7 @@ next_sentence_loss = 0.015816934
 ```
 
 ## Loading in Tensorflow 2.x
-Little changes needed in order to load weights as Keras Layer in Tensorflow 2.x 
+Little changes needed in order to load weights as Keras Layer in Tensorflow 2.x
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ReDLH2DDiCt_Y800vGub8OuYJlR-TsZw)
 
 ## Finetuning
